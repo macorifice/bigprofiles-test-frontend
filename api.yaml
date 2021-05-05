@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: BigProfiles Test
+  version: '1.0'
+  description: API da sviluppare per il test tecnico per frontend di BigProfiles.
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/v1.0/value:
+    post:
+      summary: Get random value
+      operationId: post-value
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: OK
+                  value:
+                    type: number
+                    description: valore randomico tra 1 e 10
+                required:
+                  - status
+                  - value
+              examples:
+                Example OK:
+                  value:
+                    status: OK
+                    value: 2
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+              examples:
+                Error 500:
+                  value:
+                    status: failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job:
+                  type: string
+                  description: 'ID della campagna (per effettuare la selezione in fase di monitoring), saranno usati 4 valori differenti'
+                date:
+                  type: string
+                  description: timestamp da usare per effettuare il monitoring (formato usato ISO 8601 solo data)
+              required:
+                - job
+                - date
+            examples:
+              Example Job1:
+                value:
+                  job: job1
+                  date: '2021-01-12'
+        description: Body da estrarre per poi salvare i dati sul database (usando la coppia job-date)
+      description: |-
+        Api che restituisce un valore randomico tra 1 e 10, oppure un errore (nel 10% dei casi)
+        Il body passato deve essere usato per poi fare le aggregazioni delle statistiche API (basate su job e date)
+    parameters: []
+components:
+  schemas: {}
