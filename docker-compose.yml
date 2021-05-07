@@ -3,18 +3,32 @@ version: "3"
 services:
   mongodb:
     image: "mongo:4.0.24-xenial"
+    restart: always
+    ports:
+      - 27017:27017
+    env_file:
+      - ./bin/init/src/docker.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}"
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./bin/init/src/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
 
-  
   backend:
     environment:
       - MONGO_DB=mongodb://mongodb:27017
     build: backend
     image: backend
+    depends_on:
+      - mongodb
     ports:
       - "3000:3000"
 
   frontend:
     image: frontend
     build: frontend
+    depends_on:
+      - backend
     ports:
       - "4200:4200"

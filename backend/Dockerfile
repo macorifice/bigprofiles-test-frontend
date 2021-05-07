@@ -10,4 +10,4 @@ EXPOSE 3000
 
 COPY . .
 
-CMD ["node", "main.js"]
+CMD ["node", "bin/www"]

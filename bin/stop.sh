@@ -5,4 +5,4 @@ app_home="$(realpath "$(dirname "$real_script_path")")"
 
 echo "$app_home"
 
-docker-compose down --remove-orphans -v
+docker-compose --env-file ./init/src/docker.env down --remove-orphans -v
