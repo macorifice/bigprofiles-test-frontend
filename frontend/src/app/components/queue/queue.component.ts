@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Job } from 'src/app/models/job.model';
 
 @Component({
   selector: 'app-queue',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QueueComponent implements OnInit {
 
+  @Input() data: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    // this.data = this.data.slice(Math.max(this.data.length - 5, 1));
+    // console.log(this.data);
+
   }
 
 }

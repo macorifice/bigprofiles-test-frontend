@@ -23,6 +23,9 @@
     "@angular/router": "~11.2.12",
     "highcharts": "^9.1.0",
     "highcharts-angular": "^2.10.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "moment-range": "^4.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

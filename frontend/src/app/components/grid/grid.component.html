@@ -1,28 +1,104 @@
-<mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile
-    *ngFor="let tile of tiles; let i = index"
-    [attr.data-index]="i"
-    [colspan]="tile.cols"
-    [rowspan]="tile.rows"
-    [style.background]="tile.color"
-  >
-    <ng-container *ngIf="i === 0">
-      <app-select-job></app-select-job>
-      <app-select-date></app-select-date>
-      <app-refresh-button></app-refresh-button>
-    </ng-container>
-    <ng-container *ngIf="i === 1">
-      <app-data-card></app-data-card>
-      <app-data-card></app-data-card>
-      <app-data-card></app-data-card>
-    </ng-container>
-    <ng-container *ngIf="i === 2">
-      <app-line-chart></app-line-chart>
-      <app-bar-chart></app-bar-chart>
-      <app-pie-chart></app-pie-chart>
-    </ng-container>
-    <ng-container *ngIf="i === 3">
-      <app-queue></app-queue>
-    </ng-container>
-  </mat-grid-tile>
-</mat-grid-list>
+<ng-container *ngIf="!loading">
+  <mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile
+      *ngFor="let tile of tiles; let i = index"
+      [attr.data-index]="i"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color"
+    >
+      <ng-container *ngIf="i === 0">
+        <mat-card>
+          <mat-form-field appearance="fill">
+            <mat-label>Seleziona job</mat-label>
+            <mat-select
+              (selectionChange)="onJobHandler()"
+              [(ngModel)]="selected"
+              name="job"
+            >
+              <mat-option *ngFor="let jobs of jobList" [value]="jobs.job">
+                {{ jobs.job }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field style="margin-left: 10px" appearance="fill">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input
+              [disabled]="disableDatePicker"
+              [formGroup]="range"
+              [rangePicker]="picker"
+            >
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-error
+              *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+              >Invalid start date</mat-error
+            >
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+              >Invalid end date</mat-error
+            >
+          </mat-form-field>
+          <button
+            style="margin-left: 10px"
+            (click)="onDateHandler()"
+            mat-raised-button
+            color="primary"
+          >
+            AGGIORNA
+          </button>
+        </mat-card>
+      </ng-container>
+
+      <ng-container *ngIf="showResult">
+        <ng-container *ngIf="i === 1">
+          <app-data-card
+            jobId="{{ selected }}"
+            label="Chiamate totali"
+            value="{{ totalRequests }}"
+          ></app-data-card>
+          <app-data-card
+            style="margin-left: 10px"
+            label="Tempo Risposta Medio"
+            value="{{ averageTime }}"
+          ></app-data-card>
+          <app-data-card
+            style="margin-left: 10px"
+            label="Errori Totali"
+            value="{{ totalErrors }}"
+          ></app-data-card>
+        </ng-container>
+
+        <ng-container *ngIf="i === 2">
+          <app-line-chart
+            startDate="{{ range.value.start }}"
+            endDate="{{ range.value.end }}"
+            data="{{ filteredData }}"
+          ></app-line-chart>
+          <app-bar-chart></app-bar-chart>
+          <app-pie-chart
+            percentageSucceed="{{ percentageSucceed }}"
+            percentageError="{{ percentageError }}"
+          ></app-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="i === 3">
+          <app-queue></app-queue>
+        </ng-container>
+      </ng-container>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+<ng-container *ngIf="loading">
+  <app-spinner></app-spinner>
+</ng-container>

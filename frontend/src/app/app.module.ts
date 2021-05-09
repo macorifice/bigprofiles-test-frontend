@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridComponent } from './components/grid/grid.component';
-import { SelectJobComponent } from './components/select-job/select-job.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -17,33 +16,30 @@ import {MatCardModule} from '@angular/material/card';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SelectDateComponent } from './components/select-date/select-date.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FooterComponent } from './components/footer/footer.component';
 import { DataCardComponent } from './components/data-card/data-card.component';
 import { QueueComponent } from './components/queue/queue.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
-import { RefreshButtonComponent } from './components/refresh-button/refresh-button.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
-import { ApiService } from './services/api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
-    SelectJobComponent,
     ToolbarComponent,
-    SelectDateComponent,
     FooterComponent,
     DataCardComponent,
     QueueComponent,
     BarChartComponent,
     PieChartComponent,
-    RefreshButtonComponent,
-    LineChartComponent
+    LineChartComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -61,10 +57,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HighchartsChartModule,
     MatButtonModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [
-    ApiService,
     HttpClient
   ],
   bootstrap: [AppComponent]

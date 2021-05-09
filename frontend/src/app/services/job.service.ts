@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class PerformanceService {
+export class JobService {
+
   private headers: HttpHeaders;
   private apiLocation: string;
 
@@ -12,10 +13,8 @@ export class PerformanceService {
     this.headers = new HttpHeaders();
   }
 
-  async getPerformance() {
-    const jobs = await this.http.get(this.apiLocation + 'performance', {
-      headers: this.headers,
-    });
+  async getJobs() {
+    const jobs = await this.http.get(this.apiLocation + 'value', {headers: this.headers} );
     return jobs;
   }
 }

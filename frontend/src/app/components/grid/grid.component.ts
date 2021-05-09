@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Performance } from 'src/app/models/performance.model';
 import { PerformanceService } from 'src/app/services/performance.service';
-
+import { JobService } from 'src/app/services/job.service';
+import { Job } from 'src/app/models/job.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import _ from 'lodash';
+import * as moment from 'moment';
 export interface Tile {
   color: string;
   cols: number;
@@ -10,34 +15,93 @@ export interface Tile {
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements OnInit {
+  selected = '';
+
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
 
   tiles: Tile[] = [
-    {cols: 4, rows: 1, color: 'lightblue'},
-    {cols: 4, rows: 1, color: 'lightgreen'},
-    {cols: 4, rows: 4, color: 'lightpink'},
-    {cols: 4, rows: 4, color: 'lightblue'}
+    { cols: 4, rows: 1, color: '' },
+    { cols: 4, rows: 1, color: '' },
+    { cols: 4, rows: 4, color: '' },
+    { cols: 4, rows: 4, color: '' },
   ];
 
-  performance: any;
-  error = null;
-  loading = true;
+  performance: Performance[] = [];
+  jobList: Job[] = [];
+  loading: boolean = true;
+  error: any;
+  totalRequests: number;
+  totalErrors: number;
+  average: number;
+  averageLabel: string = 'ms';
+  averageTime: string;
+  filteredData: any;
 
-  constructor(private performanceService: PerformanceService) { }
+  disableDatePicker: boolean = true;
+  showResult: boolean = false;
+  percentageError: number;
+  percentageSucceed: number;
 
-  ngOnInit(): void {
+  constructor(
+    private jobService: JobService,
+    private performanceService: PerformanceService
+  ) { }
 
+  async ngOnInit() {
     try {
-      this.performanceService.getPerformance().then((data) => {
-        this.performance = data;
+      (await this.jobService.getJobs()).subscribe((data) => {
+        this.jobList = _.map(_.uniqBy(data, 'job'));
+        this.jobList = _.orderBy(this.jobList, 'job', 'asc');
         this.loading = false;
       });
     } catch (error) {
-      this.error = error;
+      console.log(error);
     }
-
   }
 
+  async onJobHandler() {
+    this.disableDatePicker = false;
+  }
+
+  async onDateHandler() {
+    this.loading = true;
+    try {
+      setTimeout(async () => {
+        (await this.performanceService.getPerformance()).subscribe((data) => {
+          this.filteredData = _.filter(
+            data,
+            (job) =>
+              ((job) => job.jobId === this.selected) && (moment(job.data).isBetween(
+                this.range.value.start,
+                this.range.value.end
+              ) === true)
+          );
+          this.totalRequests = _.countBy(
+            this.filteredData,
+            (obj) => obj._id !== ''
+          ).true;
+          this.totalErrors = _.countBy(
+            this.filteredData,
+            (obj) => obj.status === 'failed'
+          ).true;
+          this.average = Math.round(
+            _.sumBy(this.filteredData, 'responseTime') / this.totalRequests
+          );
+          this.averageTime = this.average + this.averageLabel;
+          this.percentageError = Math.round(this.totalErrors / this.totalRequests * 100);
+          this.percentageSucceed = 100 - this.percentageError;
+          this.showResult = true;
+          this.loading = false;
+        });
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
