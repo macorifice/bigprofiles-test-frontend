@@ -47,6 +47,10 @@ export class GridComponent implements OnInit {
   showResult: boolean = false;
   percentageError: number;
   percentageSucceed: number;
+  value1: number;
+  value2: number;
+  value3: number;
+  value4: number;
 
   constructor(
     private jobService: JobService,
@@ -96,7 +100,34 @@ export class GridComponent implements OnInit {
           this.averageTime = this.average + this.averageLabel;
           this.percentageError = Math.round(this.totalErrors / this.totalRequests * 100);
           this.percentageSucceed = 100 - this.percentageError;
-          this.showResult = true;
+          
+          this.value1 = _.countBy(
+            this.filteredData,
+            (obj) => obj.value === 1
+          ).true;
+
+          this.value2 = _.countBy(
+            this.filteredData,
+            (obj) => obj.value === 2
+          ).true;
+
+
+          this.value3 = _.countBy(
+            this.filteredData,
+            (obj) => obj.value === 3
+          ).true;
+
+
+          this.value4 = _.countBy(
+            this.filteredData,
+            (obj) => obj.value === 4
+          ).true;
+
+
+          if (!_.isEmpty(this.filteredData)) {
+            this.showResult = true;
+          }
+          
           this.loading = false;
         });
       }, 1000);

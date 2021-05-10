@@ -79,6 +79,8 @@ module.exports = {
           setTimeout(() => {
 
             ResponseModel.create({
+                jobId: req.body.job,
+                data: req.body.data,
                 value: randomError ? '' : randomValue,
                 status: randomError ? 'failed' : 'OK',
                 responseTime: randomResponseTime

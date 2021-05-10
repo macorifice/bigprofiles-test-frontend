@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
+import { Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-pie-chart',
@@ -7,67 +9,25 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent implements OnInit {
-  @Input() percentageError: number;
-  @Input() percentageSucceed: number;
+  @Input() percentageSucceed: number = 0;
+  @Input() percentageError: number = 0;
 
-  Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options;
+  // Pie
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+  };
+  public pieChartLabels: Label[] = ['Resolved', 'Errors'];
+  public pieChartData: number[] = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
 
   constructor() {}
 
-  ngOnInit() {
-    this.chartOptions = {
-      chart: {
-        plotBorderWidth: null,
-        plotShadow: false,
-      },
-      title: {
-        text: 'Percentuale errori',
-        align: 'left',
-        margin: 25,
-        style: {
-          color: '#333333',
-          fontSize: '14px',
-        },
-      },
-      tooltip: {
-        shared: true,
-        useHTML: true,
-        shadow: false,
-        borderColor: '#BBBBBB',
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-      },
-      legend: {
-        itemStyle: {
-          color: '#666666',
-          fontSize: '12px',
-        },
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-            enabled: true,
-            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
-          },
-        },
-      },
-      series: [
-        {
-          type: 'pie',
-          name: 'Esito richieste',
-          data: [
-            ['Positive', this.percentageSucceed ],
-            {
-              name: 'Errori',
-              y: this.percentageError,
-              sliced: true,
-              selected: true,
-            },
-          ],
-        },
-      ],
-    };
+  ngOnInit(): void {
+    this.pieChartData.push(this.percentageSucceed);
+    this.pieChartData.push(this.percentageError);
   }
 }

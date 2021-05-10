@@ -14,7 +14,7 @@ export class QueueComponent implements OnInit {
 
   ngOnInit(): void {
     // this.data = this.data.slice(Math.max(this.data.length - 5, 1));
-    // console.log(this.data);
+    console.log(this.data);
 
   }
 

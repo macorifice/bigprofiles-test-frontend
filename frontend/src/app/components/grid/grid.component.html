@@ -60,7 +60,7 @@
         </mat-card>
       </ng-container>
 
-      <ng-container *ngIf="showResult">
+      <ng-container *ngIf="showResult && !noData">
         <ng-container *ngIf="i === 1">
           <app-data-card
             jobId="{{ selected }}"
@@ -85,7 +85,12 @@
             endDate="{{ range.value.end }}"
             data="{{ filteredData }}"
           ></app-line-chart>
-          <app-bar-chart></app-bar-chart>
+          <app-bar-chart
+            value1="{{ value1 }}"
+            value2="{{ value2 }}"
+            value3="{{ value3 }}"
+            value4="{{ value4 }}"
+          ></app-bar-chart>
           <app-pie-chart
             percentageSucceed="{{ percentageSucceed }}"
             percentageError="{{ percentageError }}"
@@ -93,7 +98,7 @@
         </ng-container>
 
         <ng-container *ngIf="i === 3">
-          <app-queue></app-queue>
+          <app-queue data="{{ filteredData }}"></app-queue>
         </ng-container>
       </ng-container>
     </mat-grid-tile>
@@ -102,3 +107,4 @@
 <ng-container *ngIf="loading">
   <app-spinner></app-spinner>
 </ng-container>
+<div class="center" *ngIf="!showResult && !loading">NO DATA FOUND</div>

@@ -54,7 +54,9 @@ module.exports = {
         var response = new ResponseModel({
 			value : req.body.value,
 			status : req.body.status,
-            responseTime: req.body.responseTime
+            responseTime: req.body.responseTime,
+            jobId: req.body.job,
+            data: req.body.data
         });
 
         response.save(function (err, response) {
@@ -92,6 +94,8 @@ module.exports = {
             response.value = req.body.value ? req.body.value : response.value;
 			response.status = req.body.status ? req.body.status : response.status;
             response.responseTime = req.body.responseTime ? req.body.responseTime : response.responseTime;
+            response.jobId = req.body.job ? req.body.job : response.job;
+            response.data = req.body.data ? req.body.data : response.data;
 			
             response.save(function (err, response) {
                 if (err) {
