@@ -28,6 +28,10 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ChartsModule } from 'ng2-charts';
+import { PrettyjsonPipe } from './pipes/prettyjson.pipe';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +43,8 @@ import { ChartsModule } from 'ng2-charts';
     BarChartComponent,
     PieChartComponent,
     LineChartComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PrettyjsonPipe
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,9 @@ import { ChartsModule } from 'ng2-charts';
     MatListModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    ChartsModule
+    ChartsModule,
+    MatExpansionModule,
+    ScrollingModule
   ],
   providers: [
     HttpClient

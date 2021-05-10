@@ -14,6 +14,7 @@ export class BarChartComponent implements OnInit {
   @Input() value3 = 0;
   @Input() value4 = 0;
 
+  // Bar
   public barChartOptions: ChartOptions = {
     responsive: true,
     scales: { xAxes: [{}], yAxes: [{}] },

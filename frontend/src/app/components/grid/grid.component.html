@@ -83,7 +83,7 @@
           <app-line-chart
             startDate="{{ range.value.start }}"
             endDate="{{ range.value.end }}"
-            data="{{ filteredData }}"
+            [data]="filteredData"
           ></app-line-chart>
           <app-bar-chart
             value1="{{ value1 }}"
@@ -98,7 +98,7 @@
         </ng-container>
 
         <ng-container *ngIf="i === 3">
-          <app-queue data="{{ filteredData }}"></app-queue>
+          <app-queue [data]="filteredData"></app-queue>
         </ng-container>
       </ng-container>
     </mat-grid-tile>

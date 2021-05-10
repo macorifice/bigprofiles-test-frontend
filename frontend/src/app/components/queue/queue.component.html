@@ -1,5 +1,13 @@
-<mat-list role="list">
-    <mat-list-item role="listitem">Item 1</mat-list-item>
-    <mat-list-item role="listitem">Item 2</mat-list-item>
-    <mat-list-item role="listitem">Item 3</mat-list-item>
-  </mat-list>
+<mat-accordion>
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> Ultime 10 chiamate </mat-panel-title>
+    </mat-expansion-panel-header>
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+      <p [innerHTML]="formattedResult | prettyjson"></p>
+    </cdk-virtual-scroll-viewport>
+  </mat-expansion-panel>
+</mat-accordion>
