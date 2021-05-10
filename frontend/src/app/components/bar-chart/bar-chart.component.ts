@@ -17,12 +17,29 @@ export class BarChartComponent implements OnInit {
   // Bar
   public barChartOptions: ChartOptions = {
     responsive: true,
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Valori'
+      }
+    }], yAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Conteggio'
+      }
+    }] },
     plugins: {
       datalabels: {
         anchor: 'end',
         align: 'end',
       }
+    },
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      text: 'Distribuzione valori'
     }
   };
   public barChartLabels: Label[] = ['1', '2', '3', '4'];

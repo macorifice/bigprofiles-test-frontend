@@ -15,8 +15,12 @@ export class PieChartComponent implements OnInit {
   // Pie
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    title: {
+      display: true,
+      text: 'Percentuale errori'
+    },
     legend: {
-      position: 'top',
+      display: false
     },
   };
   public pieChartLabels: Label[] = ['Resolved', 'Errors'];

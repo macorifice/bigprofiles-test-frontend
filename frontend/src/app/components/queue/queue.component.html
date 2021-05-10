@@ -4,9 +4,9 @@
     (closed)="panelOpenState = false"
   >
     <mat-expansion-panel-header>
-      <mat-panel-title> Ultime 10 chiamate </mat-panel-title>
+      <mat-panel-title> Ultime 10 chiamate API</mat-panel-title>
     </mat-expansion-panel-header>
-    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+    <cdk-virtual-scroll-viewport itemSize="150" class="example-viewport">
       <p [innerHTML]="formattedResult | prettyjson"></p>
     </cdk-virtual-scroll-viewport>
   </mat-expansion-panel>

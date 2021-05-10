@@ -18,9 +18,31 @@ export class LineChartComponent implements OnInit {
   public lineChartOptions: ChartOptions = {
     responsive: true,
     scales: {
-      xAxes: [{}],
-      yAxes: [{}],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Data'
+        },
+        ticks: {
+          autoSkip: false,
+          maxRotation: 45,
+          minRotation: 45
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Conteggio'
+        }
+      }],
     },
+    title: {
+      display: true,
+      text: 'Chiamate nel tempo'
+    },
+    legend: {
+      display: false
+    }
   };
   public lineChartColors: Color[] = [
     {
@@ -47,7 +69,7 @@ export class LineChartComponent implements OnInit {
     let duration = moment.duration(end.diff(start));
 
     for (let i = 0; i < duration.asDays(); i++) {
-      const date = moment(this.startDate).add(i, 'days').format('MM-DD');
+      const date = moment(this.startDate).add(i, 'days').format('DD-MM-YYYY');
       this.lineChartLabels.push(date.toString());
     }
 

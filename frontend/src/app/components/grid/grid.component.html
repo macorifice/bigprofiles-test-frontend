@@ -8,7 +8,7 @@
       [style.background]="tile.color"
     >
       <ng-container *ngIf="i === 0">
-        <mat-card>
+        <mat-card style="padding: '10px'; margin: auto;">
           <mat-form-field appearance="fill">
             <mat-label>Seleziona job</mat-label>
             <mat-select
@@ -50,12 +50,14 @@
             >
           </mat-form-field>
           <button
+            class="pulse"
             style="margin-left: 10px"
             (click)="onDateHandler()"
             mat-raised-button
             color="primary"
           >
-            AGGIORNA
+          <mat-icon aria-hidden="false" aria-label="refresh icon">refresh</mat-icon> AGGIORNA
+
           </button>
         </mat-card>
       </ng-container>
@@ -63,17 +65,16 @@
       <ng-container *ngIf="showResult && !noData">
         <ng-container *ngIf="i === 1">
           <app-data-card
-            jobId="{{ selected }}"
             label="Chiamate totali"
             value="{{ totalRequests }}"
           ></app-data-card>
           <app-data-card
-            style="margin-left: 10px"
+            style="margin-left: 30px"
             label="Tempo Risposta Medio"
             value="{{ averageTime }}"
           ></app-data-card>
           <app-data-card
-            style="margin-left: 10px"
+            style="margin-left: 30px"
             label="Errori Totali"
             value="{{ totalErrors }}"
           ></app-data-card>
@@ -98,7 +99,7 @@
         </ng-container>
 
         <ng-container *ngIf="i === 3">
-          <app-queue [data]="filteredData"></app-queue>
+          <app-queue style="margin-top: 0;" [data]="filteredData"></app-queue>
         </ng-container>
       </ng-container>
     </mat-grid-tile>

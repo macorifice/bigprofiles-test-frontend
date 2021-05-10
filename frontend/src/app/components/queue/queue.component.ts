@@ -15,15 +15,15 @@ export class QueueComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.latestElements = this.data.slice(-5);
+    this.latestElements = this.data.slice(-10);
 
-    this.latestElements.forEach((el) => {
+    this.latestElements.forEach((el, index) => {
       const { jobId, data, status } = el;
       let newObj = {};
-      newObj["request"] = {
+      newObj[`Chiamata ${index+1}`] = {
         jobId, data
       };
-      newObj["response"] = {
+      newObj[`Risposta ${index+1}`] = {
         status
       };
       this.formattedResult.push(newObj);

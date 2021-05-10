@@ -7,7 +7,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import _ from 'lodash';
 import * as moment from 'moment';
 export interface Tile {
-  color: string;
   cols: number;
   rows: number;
 }
@@ -26,10 +25,10 @@ export class GridComponent implements OnInit {
   });
 
   tiles: Tile[] = [
-    { cols: 4, rows: 1, color: '' },
-    { cols: 4, rows: 1, color: '' },
-    { cols: 4, rows: 4, color: '' },
-    { cols: 4, rows: 4, color: '' },
+    { cols: 4, rows: 1 },
+    { cols: 4, rows: 1 },
+    { cols: 4, rows: 4 },
+    { cols: 4, rows: 4 },
   ];
 
   performance: Performance[] = [];
@@ -55,7 +54,7 @@ export class GridComponent implements OnInit {
   constructor(
     private jobService: JobService,
     private performanceService: PerformanceService
-  ) { }
+  ) {}
 
   async ngOnInit() {
     try {
@@ -81,10 +80,11 @@ export class GridComponent implements OnInit {
           this.filteredData = _.filter(
             data,
             (job) =>
-              ((job) => job.jobId === this.selected) && (moment(job.data).isBetween(
+              ((job) => job.jobId === this.selected) &&
+              moment(job.data).isBetween(
                 this.range.value.start,
                 this.range.value.end
-              ) === true)
+              ) === true
           );
           this.totalRequests = _.countBy(
             this.filteredData,
@@ -98,9 +98,11 @@ export class GridComponent implements OnInit {
             _.sumBy(this.filteredData, 'responseTime') / this.totalRequests
           );
           this.averageTime = this.average + this.averageLabel;
-          this.percentageError = Math.round(this.totalErrors / this.totalRequests * 100);
+          this.percentageError = Math.round(
+            (this.totalErrors / this.totalRequests) * 100
+          );
           this.percentageSucceed = 100 - this.percentageError;
-          
+
           this.value1 = _.countBy(
             this.filteredData,
             (obj) => obj.value === 1
@@ -111,23 +113,20 @@ export class GridComponent implements OnInit {
             (obj) => obj.value === 2
           ).true;
 
-
           this.value3 = _.countBy(
             this.filteredData,
             (obj) => obj.value === 3
           ).true;
-
 
           this.value4 = _.countBy(
             this.filteredData,
             (obj) => obj.value === 4
           ).true;
 
-
           if (!_.isEmpty(this.filteredData)) {
             this.showResult = true;
           }
-          
+
           this.loading = false;
         });
       }, 1000);
