@@ -21,7 +21,7 @@ export class PieChartComponent implements OnInit {
     },
     legend: {
       display: false
-    },
+    }
   };
   public pieChartLabels: Label[] = ['Resolved', 'Errors'];
   public pieChartData: number[] = [];

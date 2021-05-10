@@ -25,10 +25,10 @@ services:
     ports:
       - "3000:3000"
 
-  # frontend:
-  #   image: frontend
-  #   build: frontend
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - "4200:4200"
+  frontend:
+    image: frontend
+    build: frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"
