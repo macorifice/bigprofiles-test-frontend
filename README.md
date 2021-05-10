@@ -1,14 +1,6 @@
 # Big Profiles API performance, usage, and errors
 
-[![macorifice - bigprofiles-test-frontend](https://img.shields.io/static/v1?label=macorifice&message=bigprofiles-test-frontend&color=blue&logo=github)](https://github.com/macorifice/bigprofiles-test-frontend)
-
-[![Angular](https://img.shields.io/badge/Angular-~11.2.12-red)](https://angular.io/guide/releases)
-
-[![ExpressJS](https://img.shields.io/badge/ExpressJS-~4.16.1-yellow)](https://expressjs.com/)
-
-[![Mongoose](https://img.shields.io/badge/Mongoose-~^5.12.7-darkred)](https://mongoosejs.com/)
-
-[![ChartJS](https://img.shields.io/badge/ChartJS-~^2.9.4-lightblue)](https://www.chartjs.org/)
+[![macorifice - bigprofiles-test-frontend](https://img.shields.io/static/v1?label=macorifice&message=bigprofiles-test-frontend&color=blue&logo=github)](https://github.com/macorifice/bigprofiles-test-frontend) [![Angular](https://img.shields.io/badge/Angular-~11.2.12-red)](https://angular.io/guide/releases) [![ExpressJS](https://img.shields.io/badge/ExpressJS-~4.16.1-yellow)](https://expressjs.com/) [![Mongoose](https://img.shields.io/badge/Mongoose-~^5.12.7-darkred)](https://mongoosejs.com/) [![ChartJS](https://img.shields.io/badge/ChartJS-~^2.9.4-lightblue)](https://www.chartjs.org/)
 
 This project allows you to analyze your API.
 
