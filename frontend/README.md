@@ -1,4 +1,16 @@
-# Frontend
+
+## FRONTEND
+# Big Profiles API performance, usage, and errors
+
+[![macorifice - bigprofiles-test-frontend](https://img.shields.io/static/v1?label=macorifice&message=bigprofiles-test-frontend&color=blue&logo=github)](https://github.com/macorifice/bigprofiles-test-frontend) [![Angular](https://img.shields.io/badge/Angular-~11.2.12-red)](https://angular.io/guide/releases) [![ChartJS](https://img.shields.io/badge/ChartJS-~^2.9.4-lightblue)](https://www.chartjs.org/)
+
+## Build
+docker build -t frontend .
+
+## Run
+docker run --name frontend -d -p 4200:4200 frontend:latest
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
@@ -25,11 +37,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## FRONTEND
-
-## build
-docker build -t frontend .
-
-## run
-docker run --name frontend -d -p 4200:4200 frontend:latest
